@@ -5208,8 +5208,11 @@ func (f *BetweenClause) End() Pos {
 
 func (f *BetweenClause) String() string {
 	var builder strings.Builder
-	builder.WriteString(f.Expr.String())
-	builder.WriteString(" BETWEEN ")
+	if f.Expr != nil {
+		builder.WriteString(f.Expr.String())
+		builder.WriteString(" ")
+	}
+	builder.WriteString("BETWEEN ")
 	builder.WriteString(f.Between.String())
 	builder.WriteString(" AND ")
 	builder.WriteString(f.And.String())
@@ -5266,7 +5269,7 @@ func (f *WindowFrameUnbounded) End() Pos {
 }
 
 func (f *WindowFrameUnbounded) String() string {
-	return f.Direction + " UNBOUNDED"
+	return "UNBOUNDED " + f.Direction
 }
 
 func (f *WindowFrameUnbounded) Accept(visitor ASTVisitor) error {
