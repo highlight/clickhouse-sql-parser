@@ -2935,6 +2935,16 @@ func (f *ParamExprList) String() string {
 		builder.WriteString(item.String())
 	}
 	builder.WriteString(")")
+	if f.ColumnArgList != nil && len(f.ColumnArgList.Items) > 0 {
+		builder.WriteString("(")
+		for i, item := range f.ColumnArgList.Items {
+			if i > 0 {
+				builder.WriteString(", ")
+			}
+			builder.WriteString(item.String())
+		}
+		builder.WriteString(")")
+	}
 	return builder.String()
 }
 
